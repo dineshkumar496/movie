@@ -1,6 +1,7 @@
 class RatingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_rating, only: %i[ show edit update destroy ]
+  before_action :set_movie, only: %i[create update]
 
   # GET /ratings or /ratings.json
   def index
@@ -22,11 +23,13 @@ class RatingsController < ApplicationController
 
   # POST /ratings or /ratings.json
   def create
-    @rating = Rating.new(rating_params)
+
+    @rating = @movie.ratings.new(rating_params)
+    @rating.user=current_user
 
     respond_to do |format|
       if @rating.save
-        format.html { redirect_to rating_url(@rating), notice: "Rating was successfully created." }
+        format.html { redirect_to movie_url(@movie), notice: "Rating was successfully created." }
         format.json { render :show, status: :created, location: @rating }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -51,7 +54,6 @@ class RatingsController < ApplicationController
   # DELETE /ratings/1 or /ratings/1.json
   def destroy
     @rating.destroy
-
     respond_to do |format|
       format.html { redirect_to ratings_url, notice: "Rating was successfully destroyed." }
       format.json { head :no_content }
@@ -62,6 +64,10 @@ class RatingsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_rating
       @rating = Rating.find(params[:id])
+    end
+
+    def set_movie
+      @movie = Movie.find(params[:movie_id])
     end
 
     # Only allow a list of trusted parameters through.

@@ -10,5 +10,21 @@
   <%= @movie.release_date %>
 </p>
 
+<!--Ratings-->
+
+<%= render 'ratings/form', rating: @rating %>
+
+<%= render 'ratings/ratings', ratings: @ratings %>
+
+
+
+<!--Reviews-->
+
+<%= render 'reviews/review', review: @movie.reviews %>
+
+<%= render 'reviews/form', review: @review %>
+
+
+
 <%= link_to 'Edit', edit_movie_path(@movie) %> |
 <%= link_to 'Back', movies_path %>

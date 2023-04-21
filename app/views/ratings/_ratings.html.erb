@@ -1,0 +1,8 @@
+<p>
+  <strong>Ratings: </strong>
+  <% ratings.each_pair do |star, count| %>
+      <span style="margin: 0 5px">
+        <%= "#{star}⭐(#{count})" %>
+      </span>
+  <% end %>
+</p>

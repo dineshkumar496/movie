@@ -8,6 +8,12 @@ class MoviesController < ApplicationController
 
   # GET /movies/1 or /movies/1.json
   def show
+
+    @rating=Rating.new
+    @review=Review.new
+
+    default_ratings = Hash[(1..5).reverse_each.map { |n| [n, 0] }]
+    @ratings = default_ratings.merge @movie.ratings.group(:star).count
   end
 
   # GET /movies/new
@@ -22,7 +28,6 @@ class MoviesController < ApplicationController
   # POST /movies or /movies.json
   def create
     @movie = Movie.new(movie_params)
-
     respond_to do |format|
       if @movie.save
         format.html { redirect_to movie_url(@movie), notice: "Movie was successfully created." }
@@ -62,7 +67,6 @@ class MoviesController < ApplicationController
     def set_movie
       @movie = Movie.find(params[:id])
     end
-
     # Only allow a list of trusted parameters through.
     def movie_params
       params.require(:movie).permit(:name, :release_date)

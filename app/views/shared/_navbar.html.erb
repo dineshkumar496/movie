@@ -1,7 +1,7 @@
 <nav class="navbar navbar-fixed " >
 
   <div class="container-fluid">
-
+    <%= link_to 'Movies', root_path, :class=>'navbar-brand' %>
     <div>
       <% if user_signed_in? %>
         <%= link_to 'Edit profile', edit_user_registration_path , :class => 'navbar-brand profile-edit', data: { bs_toggle: "modal", bs_target: "#exampleModal"},remote: true%>

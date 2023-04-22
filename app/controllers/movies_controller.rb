@@ -5,7 +5,7 @@ class MoviesController < ApplicationController
   # GET /movies or /movies.json
   def index
 
-    if params.include?(:release_date)
+    if params.include?(:release_date) and params[:release_date]!=""
       @movies=Movie.filter_by_date(params[:release_date])
     else
       @movies=@q.result

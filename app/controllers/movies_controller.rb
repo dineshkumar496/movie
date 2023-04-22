@@ -1,9 +1,16 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_movie, only: %i[ show edit update destroy ]
+  before_action :search
   # GET /movies or /movies.json
   def index
-    @movies = Movie.all
+
+    if params.include?(:release_date)
+      @movies=Movie.filter_by_date(params[:release_date])
+    else
+      @movies=@q.result
+    end
+
   end
 
   # GET /movies/1 or /movies/1.json
@@ -71,4 +78,8 @@ class MoviesController < ApplicationController
     def movie_params
       params.require(:movie).permit(:name, :release_date)
     end
+
+  def search
+    @q=Movie.ransack(params[:q])
+  end
 end

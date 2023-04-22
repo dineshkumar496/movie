@@ -32,7 +32,7 @@ class RatingsController < ApplicationController
         format.html { redirect_to movie_url(@movie), notice: "Rating was successfully created." }
         format.json { render :show, status: :created, location: @rating }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to movie_url(@movie), status: :unprocessable_entity }
         format.json { render json: @rating.errors, status: :unprocessable_entity }
       end
     end

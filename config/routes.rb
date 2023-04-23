@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
     sessions: 'users/sessions'
   }
-  #all routes
+  # all routes
   resources :movies do
     resources :ratings
     resources :reviews

@@ -3,8 +3,6 @@
 
 <%=render 'movies/filter' %>
 
-
-
 <h1>Movies</h1>
 
 <% if @movies.any? %>
@@ -18,18 +16,9 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @movies.each do |movie| %>
-      <tr>
-        <td><%= movie.name %></td>
-        <td><%= movie.release_date %></td>
-        <td><%= movie.average_rating %></td>
-        <td><%= movie.review_count %></td>
-        <td><%= link_to 'Show', movie %></td>
-        <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
-        <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+     <%=render 'movie', movie: movie %>
     <% end %>
   </tbody>
 </table>
@@ -38,4 +27,7 @@
   <%end %>
 <br>
 
-<%= link_to 'New Movie', new_movie_path %>
+<%= link_to 'New Movie', new_movie_path if can? :create ,Movie %>
+
+
+<%=will_paginate @movies %>

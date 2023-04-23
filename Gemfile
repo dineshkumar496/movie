@@ -63,3 +63,7 @@ gem 'ransack'
 gem 'devise'
 
 gem 'faker'
+
+gem 'cancancan'
+
+gem 'will_paginate'

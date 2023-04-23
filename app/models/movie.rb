@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Movie < ApplicationRecord
+  self.per_page = 20
+
   has_many :ratings, dependent: :destroy
   has_many :reviews, dependent: :destroy
 

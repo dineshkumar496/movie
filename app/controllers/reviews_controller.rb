@@ -2,8 +2,9 @@
 
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
   before_action :set_review, only: %i[show edit update destroy]
-  before_action :set_movie, only: %i[create update destroy]
+  before_action :set_movie, only: %i[create edit update destroy]
 
   # GET /reviews or /reviews.json
   def index

@@ -2,24 +2,26 @@
 
 class MoviesController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
   before_action :set_movie, only: %i[show edit update destroy]
   before_action :search
   # GET /movies or /movies.json
   def index
     @movies = if params.include?(:release_date) && (params[:release_date] != '')
-                Movie.filter_by_date(params[:release_date])
+                Movie.filter_by_date(params[:release_date]).paginate(page: params[:page])
               else
-                @q.result
+                @q.result.paginate(page: params[:page])
               end
   end
 
   # GET /movies/1 or /movies/1.json
   def show
-    @rating = Rating.new
     @review = Review.new
 
     default_ratings = Hash[(1..5).reverse_each.map { |n| [n, 0] }]
     @ratings = default_ratings.merge @movie.ratings.group(:star).count
+
+    @rating = current_user.ratings.find_by(movie_id: @movie.id) || Rating.new(movie: @movie)
   end
 
   # GET /movies/new

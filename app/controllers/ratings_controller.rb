@@ -2,8 +2,9 @@
 
 class RatingsController < ApplicationController
   before_action :authenticate_user!
+  load_and_authorize_resource
   before_action :set_rating, only: %i[show edit update destroy]
-  before_action :set_movie, only: %i[create update]
+  before_action :set_movie, only: %i[create update edit]
 
   # GET /ratings or /ratings.json
   def index
@@ -41,7 +42,8 @@ class RatingsController < ApplicationController
   def update
     respond_to do |format|
       if @rating.update(rating_params)
-        format.html { redirect_to rating_url(@rating), notice: 'Rating was successfully updated.' }
+        format.js
+        format.html { redirect_to movie_path(@movie), notice: 'Rating was successfully updated.' }
         format.json { render :show, status: :ok, location: @rating }
       else
         format.html { render :edit, status: :unprocessable_entity }

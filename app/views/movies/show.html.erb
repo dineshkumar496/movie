@@ -11,8 +11,12 @@
 </p>
 
 <!--Ratings-->
-
-<%= render 'ratings/form', rating: @rating %>
+<% if @rating.persisted? %>
+  You gave <%=@rating.star %> Rating .
+  <%=link_to "Edit" ,edit_movie_rating_path(@movie,@rating) , remote: true%>
+<%else %>
+  <%= render 'ratings/form', rating: @rating %>
+<%end %>
 
 <%= render 'ratings/ratings', ratings: @ratings %>
 
@@ -20,7 +24,7 @@
 
 <!--Reviews-->
 
-<%= render 'reviews/review', review: @movie.reviews %>
+<%= render 'reviews/review', reviews: @movie.reviews %>
 
 <%= render 'reviews/form', review: @review %>
 

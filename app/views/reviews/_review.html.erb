@@ -1,5 +1,7 @@
 <div>
-  <% review.each do |r| %>
+  <% reviews.each do |r| %>
   <%= r.body %>
+    <td><%= link_to 'Edit', edit_movie_review_path(@movie,r) if can? :edit ,r %></td>
+    <td><%= link_to 'Destroy', movie_review_path(@movie,r), method: :delete, data: { confirm: 'Are you sure?' }, remote: true if can? :destroy,r%></td>
   <% end %>
 </div>

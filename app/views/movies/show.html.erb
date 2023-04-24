@@ -27,8 +27,8 @@
 <%= render 'reviews/form', review: @review %>
 
 <div id="reviews">
-  <% if @movie.reviews.any? %>
-    <% @movie.reviews.each do |r| %>
+  <% if @reviews.any? %>
+    <% @reviews.each do |r| %>
         <%= render 'reviews/review', r: r %>
     <%end %>
   <%else %>

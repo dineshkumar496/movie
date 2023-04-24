@@ -17,6 +17,7 @@ class MoviesController < ApplicationController
   # GET /movies/1 or /movies/1.json
   def show
     @review = Review.new
+    @reviews = @movie.reviews.includes(:user)
     @rating = current_user.ratings.find_by(movie_id: @movie.id) || Rating.new(movie: @movie)
   end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Movie < ApplicationRecord
-  self.per_page = 20
+  self.per_page = 15
 
   has_many :ratings, dependent: :destroy
   has_many :reviews, dependent: :destroy
@@ -15,8 +15,8 @@ class Movie < ApplicationRecord
   default_scope { order(average_rating: :desc) }
 
   # Scope for filtering movies using release date
-  scope :filter_by_date, lambda { |start_date|
-    where(release_date: start_date)
+  scope :filter_by_date, lambda { |given_date|
+    where(release_date: given_date)
   }
 
   def self.ransackable_attributes(_auth_object = nil)

@@ -1,8 +1,10 @@
 <%= form_with(model: [@movie, review], local: false) do |form| %>
 
+  <div id="err"></div>
+
   <div class="field">
     <%= form.label :body %>
-    <%= form.text_area :body %>
+    <%= form.text_area :body,:class=>"review-body" %>
   </div>
 
   <div class="actions">

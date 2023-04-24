@@ -29,7 +29,7 @@ class RatingsController < ApplicationController
 
     respond_to do |format|
       if @rating.save
-        format.js
+        format.js { flash[:notice] = 'Rating was successfully added.' }
         format.html { redirect_to movie_url(@movie), notice: 'Rating was successfully created.' }
         format.json { render :show, status: :created, location: @rating }
       else
@@ -42,11 +42,10 @@ class RatingsController < ApplicationController
 
   # PATCH/PUT /ratings/1 or /ratings/1.json
   def update
-    default_ratings = Hash[(1..5).reverse_each.map { |n| [n, 0] }]
-    @ratings = default_ratings.merge @movie.ratings.group(:star).count
+
     respond_to do |format|
       if @rating.update(rating_params)
-        format.js
+        format.js { flash[:notice] = 'Rating was successfully updated.' }
         format.html { redirect_to movie_path(@movie), notice: 'Rating was successfully updated.' }
         format.json { render :show, status: :ok, location: @rating }
       else

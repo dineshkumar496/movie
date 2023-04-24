@@ -1,4 +1,3 @@
-<p id="notice"><%= notice %></p>
 
 <p>
   <strong>Name:</strong>
@@ -22,8 +21,7 @@
 <div id="reviews">
   <% if @movie.reviews.any? %>
     <% @movie.reviews.each do |r| %>
-      <div id="<%=r.id %>"></div>
-      <%= render 'reviews/review', r: r %>
+        <%= render 'reviews/review', r: r %>
     <%end %>
   <%else %>
      <h4>No Reviews Available</h4>

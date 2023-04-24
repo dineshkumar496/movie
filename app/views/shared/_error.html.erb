@@ -2,7 +2,7 @@
 <% if object.errors.any? %>
   <div id="error_explanation">
       <% object.errors.each do |error| %>
-        <p class="alert-danger"><%= error.full_message %></p>
+        <p class="alert alert-danger"><%= error.full_message %></p>
       <% end %>
   </div>
 <% end %>

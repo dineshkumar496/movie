@@ -71,5 +71,3 @@ gem 'cancancan'
 gem 'will_paginate'
 
 gem 'activestorage'
-
-

@@ -1,0 +1,5 @@
+
+<% if @rating.errors.any? %>
+<%else %>
+$('#ratings').html("<%= j render 'movies/rating'%>")
+<% end %>

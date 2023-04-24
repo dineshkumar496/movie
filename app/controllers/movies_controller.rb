@@ -17,10 +17,6 @@ class MoviesController < ApplicationController
   # GET /movies/1 or /movies/1.json
   def show
     @review = Review.new
-
-    default_ratings = Hash[(1..5).reverse_each.map { |n| [n, 0] }]
-    @ratings = default_ratings.merge @movie.ratings.group(:star).count
-
     @rating = current_user.ratings.find_by(movie_id: @movie.id) || Rating.new(movie: @movie)
   end
 
@@ -37,9 +33,11 @@ class MoviesController < ApplicationController
     @movie = Movie.new(movie_params)
     respond_to do |format|
       if @movie.save
+        format.js
         format.html { redirect_to movie_url(@movie), notice: 'Movie was successfully created.' }
         format.json { render :show, status: :created, location: @movie }
       else
+        format.js
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
@@ -50,9 +48,11 @@ class MoviesController < ApplicationController
   def update
     respond_to do |format|
       if @movie.update(movie_params)
+        format.js
         format.html { redirect_to movie_url(@movie), notice: 'Movie was successfully updated.' }
         format.json { render :show, status: :ok, location: @movie }
       else
+        format.js
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @movie.errors, status: :unprocessable_entity }
       end
@@ -64,6 +64,7 @@ class MoviesController < ApplicationController
     @movie.destroy
 
     respond_to do |format|
+      format.js
       format.html { redirect_to movies_url, notice: 'Movie was successfully destroyed.' }
       format.json { head :no_content }
     end

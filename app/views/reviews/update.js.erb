@@ -1,0 +1,8 @@
+<% if @review.errors.any? %>
+$("#err").html("<%= escape_javascript render 'shared/error', object: @review %>")
+<% else %>
+$("#<%=@review.id%>").html("<%= escape_javascript render 'reviews/review', r:@review %>")
+$('.btn-close').click()
+$("#notice-").html('<%= j render "shared/notice" %>')
+<% end %>
+

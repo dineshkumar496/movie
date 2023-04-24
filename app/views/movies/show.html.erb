@@ -11,22 +11,25 @@
 </p>
 
 <!--Ratings-->
-<% if @rating.persisted? %>
-  You gave <%=@rating.star %> Rating .
-  <%=link_to "Edit" ,edit_movie_rating_path(@movie,@rating) , remote: true%>
-<%else %>
-  <%= render 'ratings/form', rating: @rating %>
-<%end %>
-
-<%= render 'ratings/ratings', ratings: @ratings %>
-
-
+<div id="ratings">
+  <%= render 'movies/rating' %>
+</div>
 
 <!--Reviews-->
 
-<%= render 'reviews/review', reviews: @movie.reviews %>
-
 <%= render 'reviews/form', review: @review %>
+
+<div id="reviews">
+  <% if @movie.reviews.any? %>
+    <% @movie.reviews.each do |r| %>
+      <div id="<%=r.id %>"></div>
+      <%= render 'reviews/review', r: r %>
+    <%end %>
+  <%else %>
+     <h4>No Reviews Available</h4>
+  <%end %>
+</div>
+
 
 
 

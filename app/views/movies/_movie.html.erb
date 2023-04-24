@@ -1,9 +1,8 @@
-<tr>
+
   <td><%= movie.name %></td>
   <td><%= movie.release_date %></td>
   <td><%= movie.average_rating %></td>
   <td><%= movie.review_count %></td>
   <td><%= link_to 'Show', movie %></td>
-  <td><%= link_to 'Edit', edit_movie_path(movie) if can? :edit, movie %></td>
-  <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } if can? :destroy, movie %></td>
-</tr>
+  <td><%= link_to 'Edit', edit_movie_path(movie),:class=>"movie-edit", data: { bs_toggle: "modal", bs_target: "#exampleModal"}, remote:true  if can? :edit, movie %></td>
+  <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' }, remote:true if can? :destroy, movie %></td>

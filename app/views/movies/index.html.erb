@@ -16,9 +16,11 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody id="movie_body">
     <% @movies.each do |movie| %>
-     <%=render 'movie', movie: movie %>
+       <tr id="<%=movie.id%>">
+         <%=render 'movie', movie: movie %>
+       </tr>
     <% end %>
   </tbody>
 </table>
@@ -27,7 +29,5 @@
   <%end %>
 <br>
 
-<%= link_to 'New Movie', new_movie_path if can? :create ,Movie %>
-
-
+<%= link_to 'New Movie', new_movie_path , :class => 'btn btn-primary movie-create', data: { bs_toggle: "modal", bs_target: "#exampleModal"}, remote:true if can? :create ,Movie%>
 <%=will_paginate @movies %>

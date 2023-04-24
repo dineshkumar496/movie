@@ -29,10 +29,12 @@ class ReviewsController < ApplicationController
 
     respond_to do |format|
       if @review.save
+        format.js
 
         format.html { redirect_to movie_path(@movie), notice: 'Review was successfully created.' }
         format.json { render :show, status: :created, location: @review }
       else
+        format.js
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
@@ -43,9 +45,11 @@ class ReviewsController < ApplicationController
   def update
     respond_to do |format|
       if @review.update(review_params)
+        format.js
         format.html { redirect_to movie_url(@movie), notice: 'Review was successfully updated.' }
         format.json { render :show, status: :ok, location: @review }
       else
+        format.js
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @review.errors, status: :unprocessable_entity }
       end
@@ -57,6 +61,7 @@ class ReviewsController < ApplicationController
     @review.destroy
 
     respond_to do |format|
+      format.js
       format.html { redirect_to movie_url(@movie), notice: 'Review was successfully destroyed.' }
       format.json { head :no_content }
     end

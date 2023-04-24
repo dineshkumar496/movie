@@ -1,0 +1,8 @@
+<% if @movie.errors.any? %>
+$("#err").html("<%= escape_javascript render 'shared/error', object: @movie %>")
+<% else %>
+$("#<%=@movie.id%>").html("<%= escape_javascript render 'movies/movie', movie:@movie %>")
+$('.btn-close').click()
+$("#notice-").html('<%= j render "shared/notice" %>')
+<% end %>
+

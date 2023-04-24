@@ -1,0 +1,8 @@
+
+<% if resource.errors.any? %>
+$("#err").html("<%= escape_javascript render 'users/shared/error_messages' %>")
+<% else %>
+$(".btn-close").click()
+$("#notice").html("<%= escape_javascript render 'shared/notice' %>")
+$("#notice-").html('<%= j render "shared/notice" %>')
+<% end %>

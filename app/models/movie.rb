@@ -5,6 +5,7 @@ class Movie < ApplicationRecord
 
   has_many :ratings, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_one_attached :image, dependent: :destroy
 
   # validations
   validates :name, length: { in: 1..50 }

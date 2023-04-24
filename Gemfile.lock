@@ -253,6 +253,7 @@ PLATFORMS
   x64-mingw-ucrt
 
 DEPENDENCIES
+  activestorage
   bootsnap (>= 1.4.4)
   byebug
   cancancan

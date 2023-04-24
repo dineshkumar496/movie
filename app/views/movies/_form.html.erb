@@ -12,6 +12,16 @@
     <%= form.date_select :release_date %>
   </div>
 
+  <div class="field mb-3">
+    <% if movie.image.attached? %>
+      <%= image_tag movie.image, size: '100x100', style: 'border-radius: 1%' %>
+    <% else %>
+      <div class="text-center">No Image found.</div>
+    <% end %>
+    <br />
+    <%= form.file_field :image, accept: 'image/png,image/gif,image/jpeg' %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

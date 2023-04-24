@@ -4,6 +4,7 @@ module ApplicationHelper
   def search
     @q = Movie.ransack(params[:q])
   end
+
   def resource_name
     :user
   end

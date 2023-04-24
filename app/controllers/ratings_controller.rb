@@ -42,7 +42,6 @@ class RatingsController < ApplicationController
 
   # PATCH/PUT /ratings/1 or /ratings/1.json
   def update
-
     respond_to do |format|
       if @rating.update(rating_params)
         format.js { flash[:notice] = 'Rating was successfully updated.' }

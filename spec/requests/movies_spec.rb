@@ -8,7 +8,7 @@ RSpec.describe 'Movies', type: :request do
   let!(:movie2) { Movie.create!(name: 'bbb', release_date: Date.today) }
   let!(:movie3) { Movie.create!(name: 'ccc', release_date: Date.tomorrow) }
 
-  describe "signed in as admin" do
+  describe 'signed in as admin' do
     context 'GET /movies' do
       it 'returns a success response' do
         login_as(user, scope: :user)
@@ -53,12 +53,10 @@ RSpec.describe 'Movies', type: :request do
           expect(response).to_not be_successful
         end
       end
-
     end
 
     context 'when user is not authenticated' do
       it 'redirects to sign in page' do
-
         get new_movie_path
         expect(response).to redirect_to(new_user_session_path)
       end
@@ -67,7 +65,6 @@ RSpec.describe 'Movies', type: :request do
 
   describe 'POST /movies' do
     context 'with admin access ' do
-
       context 'with valid params ' do
         it 'redirects to the created movie' do
           login_as(admin, scope: :admin)

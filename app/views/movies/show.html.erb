@@ -9,6 +9,14 @@
   <%= @movie.release_date %>
 </p>
 
+<div style="max-width: 25rem">
+  <% if @movie.image.present? %>
+    <%= image_tag @movie.image,:class => "img-fluid"%>
+    <% else %>
+    <h5>Photo Not available</h5>
+  <% end %>
+</div>
+
 <!--Ratings-->
 <div id="ratings">
   <%= render 'movies/rating' %>
@@ -27,9 +35,6 @@
      <h4>No Reviews Available</h4>
   <%end %>
 </div>
-
-
-
 
 <%= link_to 'Edit', edit_movie_path(@movie) %> |
 <%= link_to 'Back', movies_path %>

@@ -2,12 +2,11 @@
 
   <div id="err"></div>
 
-  <div class="field">
-    <%= form.label :body %>
-    <%= form.text_area :body,:class=>"review-body" %>
+  <div class="field mb-3">
+    <%= form.text_area :body, :class => 'form-control review-body' %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :class => 'btn btn-primary'%>
   </div>
 <% end %>

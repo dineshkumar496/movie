@@ -1,6 +1,8 @@
 
 <%=render 'movies/filter' %>
 
+
+
 <h1>Movies</h1>
 
 <% if @movies.any? %>
@@ -28,4 +30,8 @@
 <br>
 
 <%= link_to 'New Movie', new_movie_path , :class => 'btn btn-primary movie-create', data: { bs_toggle: "modal", bs_target: "#exampleModal"}, remote:true if can? :create ,Movie%>
-<%=will_paginate @movies %>
+
+<br><br>
+<div class="apple_pagination">
+  <%= will_paginate @movies, :container => false %>
+</div>

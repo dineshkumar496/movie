@@ -1,6 +1,10 @@
-<div id="<%=r.id%>">
-    <%= r.body %>
-    (<%=r.user.email %>)
-    <td><%= link_to 'Edit', edit_movie_review_path(@movie,r),remote: true, :class => 'btn btn-primary review-edit', data: { bs_toggle: "modal", bs_target: "#exampleModal"} if can? :edit ,r %></td>
-    <td><%= link_to 'Destroy', movie_review_path(@movie,r), method: :delete, data: { confirm: 'Are you sure?' }, remote: true if can? :destroy,r%></td>
+<div id="<%=r.id%>", class="d-flex border-1 card position-relative alert alert-info">
+  <div class="d-flex" ><strong style="margin-right: .5rem">Posted by: </strong><%=r.user.email %>
+    <p style="margin-left: 1rem"><%= link_to 'Edit', edit_movie_review_path(@movie,r),remote: true, :class => 'review-edit', data: { bs_toggle: "modal", bs_target: "#exampleModal"} if can? :edit ,r %></p>
+    <p style="margin-left: 1rem"><%= link_to 'Destroy', movie_review_path(@movie,r), method: :delete, data: { confirm: 'Are you sure?' }, remote: true if can? :destroy,r%></p>
+  </div>
+
+  <div class=" text-wrap", style="margin:1rem; margin-top: -.5rem;margin-bottom: -.5rem"><%= r.body %></div>
+
 </div>
+

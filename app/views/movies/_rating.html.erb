@@ -1,9 +1,11 @@
+
+<%@ratings=ratings_method %>
+<%= render 'ratings/ratings', ratings: @ratings %>
+
 <% if @rating.persisted? %>
   You gave <%=@rating.star %> Star Rating .
-  <%=link_to "Edit" ,edit_movie_rating_path(@movie,@rating) , remote: true, :class => 'btn btn-primary rating-edit', data: { bs_toggle: "modal", bs_target: "#exampleModal"} %>
+  <%=link_to "Edit" ,edit_movie_rating_path(@movie,@rating) , remote: true, :class => 'rating-edit', data: { bs_toggle: "modal", bs_target: "#exampleModal"} %>
 <%else %>
   <%= render 'ratings/form', rating: @rating %>
 <%end %>
 
-<%@ratings=ratings_method %>
-<%= render 'ratings/ratings', ratings: @ratings %>

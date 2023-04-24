@@ -1,5 +1,6 @@
-class WelcomeUserJob < ApplicationJob
+# frozen_string_literal: true
 
+class WelcomeUserJob < ApplicationJob
   queue_as :default
 
   def perform(user)

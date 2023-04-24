@@ -74,4 +74,4 @@ gem 'activestorage'
 
 gem 'pg'
 
-gem "letter_opener", group: :development
+gem 'letter_opener', group: :development

@@ -9,13 +9,11 @@ RSpec.describe 'Movies', type: :request do
   let!(:movie3) { Movie.create!(name: 'ccc', release_date: Date.tomorrow) }
 
   describe 'when user is authenticated' do
-
-    before() do
+    before do
       login_as(user, scope: :user)
     end
 
     context 'GET /movies' do
-
       it 'returns a success response' do
         get movies_path
         expect(response).to be_successful
@@ -32,11 +30,9 @@ RSpec.describe 'Movies', type: :request do
         expect(response).to be_successful
         expect(response.body).to include('bbb')
       end
-
     end
 
-    context "Get /movies/:id" do
-
+    context 'Get /movies/:id' do
       it 'returns a success response' do
         get movie_path(movie1)
         expect(response).to be_successful
@@ -44,7 +40,6 @@ RSpec.describe 'Movies', type: :request do
     end
 
     context 'GET /movies/new' do
-
       it 'returns a success response with admin role' do
         get new_movie_path
         expect(response).to be_successful
@@ -57,7 +52,6 @@ RSpec.describe 'Movies', type: :request do
         expect(response).to_not be_successful
       end
     end
-
   end
 
   describe 'when user is not authenticated' do
@@ -68,19 +62,18 @@ RSpec.describe 'Movies', type: :request do
       end
     end
 
-    context "Get /movies/:id" do
+    context 'Get /movies/:id' do
       it 'should not returns a success response' do
         get movie_path(movie1)
         expect(response).to_not be_successful
       end
     end
 
-    context "Get /movies/new" do
+    context 'Get /movies/new' do
       it 'should not returns a success' do
         get new_movie_path
         expect(response).to_not be_successful
       end
     end
   end
-
 end

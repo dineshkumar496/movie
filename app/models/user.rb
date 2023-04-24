@@ -16,5 +16,4 @@ class User < ApplicationRecord
   def welcome_user
     WelcomeUserJob.perform_later(self)
   end
-
 end

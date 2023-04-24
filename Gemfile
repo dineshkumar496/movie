@@ -71,3 +71,7 @@ gem 'cancancan'
 gem 'will_paginate'
 
 gem 'activestorage'
+
+gem 'pg'
+
+gem "letter_opener", group: :development

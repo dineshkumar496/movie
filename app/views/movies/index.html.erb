@@ -6,21 +6,19 @@
 <h1>Movies</h1>
 
 <% if @movies.any? %>
-<table style="width: 100%">
+<table class="table table-striped table-bordered" >
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Release date</th>
-      <th>Rating</th>
-      <th>Review Count</th>
-      <th colspan="3"></th>
+      <th scope="col">Name</th>
+      <th scope="col">Release date</th>
+      <th scope="col">Average Rating</th>
+      <th scope="col">Review Count</th>
+      <th colspan="3">Actions</th>
     </tr>
   </thead>
   <tbody id="movie-body">
     <% @movies.each do |movie| %>
-       <tr id="<%=movie.id%>">
          <%=render 'movie', movie: movie %>
-       </tr>
     <% end %>
   </tbody>
 </table>

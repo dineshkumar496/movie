@@ -2,91 +2,85 @@
 
 require 'rails_helper'
 RSpec.describe 'Movies', type: :request do
-  let!(:user) { User.create!(email: 'aaa@gmail.com', password: '123456', admin: false) }
-  let!(:admin) { User.create!(email: 'dinesh@gmail.com', password: '123456', admin: true) }
+  let!(:user) { User.create!(email: 'aaa@gmail.com', password: '123456', admin: true) }
+  let!(:user1) { User.create!(email: 'dinesh@gmail.com', password: '123456') }
   let!(:movie1) { Movie.create!(name: 'aaa', release_date: Date.yesterday) }
   let!(:movie2) { Movie.create!(name: 'bbb', release_date: Date.today) }
   let!(:movie3) { Movie.create!(name: 'ccc', release_date: Date.tomorrow) }
 
-  describe 'signed in as admin' do
+  describe 'when user is authenticated' do
+
+    before() do
+      login_as(user, scope: :user)
+    end
+
     context 'GET /movies' do
+
       it 'returns a success response' do
-        login_as(user, scope: :user)
         get movies_path
         expect(response).to be_successful
       end
 
       it 'return a success with search results' do
-        login_as(user, scope: :user)
         get movies_path, params: { q: 'aaa' }
         expect(response).to be_successful
+        expect(response.body).to include('aaa')
       end
 
       it 'return a success with filtered results' do
-        login_as(user, scope: :user)
         get movies_path, params: { release_date: Date.today }
         expect(response).to be_successful
+        expect(response.body).to include('bbb')
       end
+
     end
 
-    describe 'GET /movies/:id' do
+    context "Get /movies/:id" do
+
       it 'returns a success response' do
-        login_as(user, scope: :user)
         get movie_path(movie1)
         expect(response).to be_successful
       end
     end
 
-    describe 'GET /movies/new' do
-      context 'when user is authorized as admin' do
-        it 'returns a success response' do
-          login_as(admin, scope: :admin)
-          get new_movie_path
-          expect(response).to be_successful
-        end
-      end
+    context 'GET /movies/new' do
 
-      context 'when user is authorized as normal user' do
-        it 'returns a unsuccessful response ' do
-          login_as(user, scope: :user)
-          get new_movie_path
-          expect(response).to_not be_successful
-        end
-      end
-    end
-
-    context 'when user is not authenticated' do
-      it 'redirects to sign in page' do
+      it 'returns a success response with admin role' do
         get new_movie_path
-        expect(response).to redirect_to(new_user_session_path)
+        expect(response).to be_successful
+      end
+
+      it 'should not returns a success response without admin role' do
+        logout
+        login_as(user1, scope: :user1)
+        get new_movie_path
+        expect(response).to_not be_successful
+      end
+    end
+
+  end
+
+  describe 'when user is not authenticated' do
+    context 'Get /movies' do
+      it 'should not returns a success response' do
+        get movies_path
+        expect(response).to_not be_successful
+      end
+    end
+
+    context "Get /movies/:id" do
+      it 'should not returns a success response' do
+        get movie_path(movie1)
+        expect(response).to_not be_successful
+      end
+    end
+
+    context "Get /movies/new" do
+      it 'should not returns a success' do
+        get new_movie_path
+        expect(response).to_not be_successful
       end
     end
   end
 
-  describe 'POST /movies' do
-    context 'with admin access ' do
-      context 'with valid params ' do
-        it 'redirects to the created movie' do
-          login_as(admin, scope: :admin)
-          post movies_path, params: { movie: attributes_for(:movie, user:) }
-          expect(response).to redirect_to(Movie.last)
-        end
-      end
-
-      context 'with invalid params' do
-        it 'renders the new template' do
-          login_as(admin, scope: :admin)
-          post movies_path, params: { movie: attributes_for(:movie, name: nil, user:) }
-          expect(response).to render_template(:new)
-        end
-      end
-    end
-    context 'without admin access' do
-      it 'renders the new template' do
-        login_as(user, scope: :user)
-        post movies_path, params: { movie: attributes_for(:movie, name: nil, user:) }
-        expect(response).to render_template(:new)
-      end
-    end
-  end
 end

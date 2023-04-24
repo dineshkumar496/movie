@@ -8,4 +8,13 @@ class User < ApplicationRecord
 
   has_many :ratings, dependent: :destroy
   has_many :reviews, dependent: :destroy
+
+  after_create :welcome_user
+
+  private
+
+  def welcome_user
+    WelcomeUserJob.perform_later(self)
+  end
+
 end

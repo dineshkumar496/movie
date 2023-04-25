@@ -1,0 +1,19 @@
+databases:
+  - name: Movie_reivew
+    databaseName: mysite
+    user: mysite
+    type: reww
+
+services:
+  - type: web
+    name: Movie_review
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: "postgres://movie_g7dt_user:x5fGA7wpTFAFVW1YoDRGaYT7O6WFBIoU@dpg-ch352c5gk4qarqkcg210-a/movie_g7dt"
+        fromDatabase:
+          name: mysite
+          property: connectionString
+      - key: 3842c0d91afc8d155b1c5dfd8cc44724
+        sync: false

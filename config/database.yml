@@ -4,31 +4,46 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 #
-default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+#default: &default
+ # adapter: sqlite3
 
-development:
-  <<: *default
-  database: db/development.sqlite3
+  #timeout: 5000
+
+#development:
+  #<<: *default
+  #database: db/development.sqlite3
 
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  <<: *default
+#test:
+  #<<: *default
   #database: db/test.sqlite3
-  database: Movie_Review_test
+  #database: Movie_Review_test
 
 #production:
   #<<: *default
   #database: db/production.sqlite3
   #database: Movie_Review_production
 
-production:
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  url: "postgres://movie_g7dt_user:x5fGA7wpTFAFVW1YoDRGaYT7O6WFBIoU@dpg-ch352c5gk4qarqkcg210-a.singapore-postgres.render.com/movie_g7dt"
+#production:
+  #adapter: postgresql
+  #encoding: unicode
+  #url: "postgres://movie_g7dt_user:x5fGA7wpTFAFVW1YoDRGaYT7O6WFBIoU@dpg-ch352c5gk4qarqkcg210-a.singapore-postgres.render.com/movie_g7dt"
+
+
+  default: &default
+    adapter: postgresql
+    encoding: unicode
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+    url: "postgres://movie_g7dt_user:x5fGA7wpTFAFVW1YoDRGaYT7O6WFBIoU@dpg-ch352c5gk4qarqkcg210-a.singapore-postgres.render.com/movie_g7dt"
+
+  development:
+    <<: *default
+    database: movie_development
+
+  test:
+    <<: *default
+    database: movie_test
+
+  production:
+    <<: *default
+    database: movie_production
